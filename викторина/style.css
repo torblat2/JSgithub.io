@@ -1,0 +1,10 @@
+#theme {
+	position: absolute;
+	right:10px;
+	top: 10px;
+}
+
+body {
+	background:white;
+	color:black;
+}
