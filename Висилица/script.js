@@ -1,59 +1,274 @@
-﻿function rabndomWord(massiv) {
-	let random = massiv[Math.floor(Math.random()*massiv.lenght)];
+function rabndomWord(massiv) {
+	let random = massiv[Math.floor(Math.random()*massiv.length)];
 	return random;
 }	
 
 function setWord(){
-	const words = ["волк","петя","самолёт","компутер","путин","погода","тэг","помидор","бабушка","лунтик","пеппа","окай","хайль","история","всё","привет","оно","уроки","атака","слон","карандаш","самовар","поезд","компьютер","игра","собака","корова","певец","луна","програмист","мост","кот","вокзал","том","головоломка","опера","платформа","капитан","машинист","пилот","доктор"];
+	const words = ["волк","петя","самолёт","компутер","путин","погода","тэг","помидор","бабушка","лунтик","пеппа","окай","хайль","история","всё","привет","оно","уроки","атака","слон","карандаш","самовар","поезд","компьютер","игра","собака","корова","певец","луна","програмист","мост","кот","вокзал","том","головоломка","опера","платформа","капитан","машинист","пилот","доктор","превысокомногорассмотрительствующий"];
 	let word = rabndomWord(words);
 	return word;
+} 
+let name  = "Ты"
+let slovo = setWord();
+let word = [];
+for (let i = 0; i < slovo.length ; i++) {
+	word[i] = "_"
+}
+let ostalos = slovo.length;
+let errors = 0;
+let wrong = [];
+//функция которая устанавливает имя и создаёт тполя с вопросами
+function getName(){
+	let inp = $('#name').val()
+	if (inp.length > 0) {
+		name = inp;
+	}
+	$('body').empty();
+	$('body').append('<div class="div">');
+	$('.div').append('<h1>'+word.join(' ')+'</h1>');
+	$('.div').append('<input id="ans">');
+	$('#ans').focus();
+	$('.div').append('<button onclick="game()">Отправить</button>');
+	$('body').append('<canvas id="canv"></canvas>');
+	$('#canv').attr({
+		width: '1000',
+		height:'700'
+	});
+	$('.div').height('115px')
 }
 
+
+
 function game() {
-	let name = prompt("Скажи своё имя...");
-	if(name == null || name == "") {
-		name = "Чел без имени";
+	let letter = $('#ans').val().toLowerCase();
+	let ugadal = false
+
+	for (var i = 0; i < slovo.length; i++) {
+	  	 if(slovo[i] == letter){
+	  	 	word[i] = letter.toUpperCase();
+	  	 	ugadal = true;
+	  	 	ostalos--;
+	  	 }
 	}
 
-	let play = confirm(name + ", сейчас компутер загадает слово которые ты должен(-а) отгадать... Начать игру?" );
-	if (play = true ) {
-		const  slovo = setWord();
-		let MicrosoftWord = [];
-		// заполняем масив подчёкиваниями. Кол-во подчёркиваний равно длине загадонного слова!;
-		for (var i = 0; i < slovo.lenght; i++) {
-			word[i] == "_"
-		}
+	if ( ugadal == false) {
+		errors++;
+		wrong.push(letter.toUpperCase())
+		drawV(errors)
+	}	
 
-		let pytka = slovo - 1;
-		let ostalos = slovo.lenght;
-		while(pytka == 0 || ostalos == 0) {
-			let string = word.join(" ")
-			let letter = prompt(name + ", у тебя осталось " + ostalos + " попыток. Ваше слово" + string + " Hp = " + pytka + ". Введи букву");
-			if(letter.lenght == 1) {
-				for(let i = 0; i < slovo.lenght; i++){
-					if(letter == slovo[i]){
-						word[i] == letter;
-					}	
-				}
-			}
-			else {
-				alert("Всего одна буква!");
+
+	if (ostalos == 0) {
+		$('.div').empty()
+		$('#canv').fadeOut(2000,function(){
+			let canv = $('#canv');
+			canv.clearCanvas();
+			canv.drawArc({
+				strokeStyle:'black',
+				strokeWidth:5,
+				x:400, y:250,
+				radius: 30,
+				start: 0, end:360,
+				close:true
+			})
+			canv.drawLine({
+				strokeStyle: 'black',
+				strokeWidth: 5,
+				x1:400, y1:280,
+				x2:400, y2:400
+			})
 		
-			}
-		}
+
+			canv.drawLine({
+				strokeStyle: 'black',
+				strokeWidth: 5,
+				x1:400, y1:300,
+				x2:450, y2:350
+
+			})
+		
+		
+			canv.drawLine({
+				strokeStyle: 'black',
+				strokeWidth: 5,
+				x1:400, y1:300,
+				x2:350, y2:350
+
+			})
+		
+		
+			canv.drawLine({
+				strokeStyle: 'black',
+				strokeWidth: 5,
+				x1:400, y1:400,
+				x2:350, y2:470
+
+			})
+				canv.drawLine({
+				strokeStyle: 'black',
+				strokeWidth: 5,
+				x1:400, y1:400,
+				x2:450, y2:470
+
+			});
+			canv.drawText({
+	         fillStyle: 'red',
+	         fontSize:20,
+	         text: name+ ' выйграл и сбежал',
+	         x:600, y:200
+			});
+		})		
+		$('#canv').fadeIn(2000)
+	}
+	else if (errors == 10){
+		let canv = $('#canv')
+		canv.drawLine({
+			strokeStyle: 'black',
+			strokeWidth: 5,
+			x1:400, y1:400,
+			x2:450, y2:470
+
+		});
+		canv.drawText({
+         fillStyle: 'red',
+         fontSize:20,
+         text: name,
+         x:600, y:200
+		});
+			canv.drawLine({
+			strokeStyle: 'black',
+			strokeWidth: 5,
+			x1:500, y1:210,
+			x2:600, y2:210,
+			startArrow: true,
+			arrowRadius: 20,
+			arrowAngle: 45
+		});
+		$('.div').empty()
+	
 
 	}
 	else {
-		alert("Удачи и пока, " + name +". заходи ещё" );
-		
+		$('.div').empty();
+		$('.div').append('<h1>'+word.join(' ')+'</h1>');
+		$('.div').append('<p>' +wrong.join(', ')+'</p>');
+		$('.div').append('<input id="ans">');
+		$('#ans').focus();
+		$('.div').append('<button onclick="game()">Отправить</button>');
 	}
-	if (ostalos == 0 && words == "оно") {
-		alert(name + ", молодец ты отгодал -ОНО- готовся! ");
-		alert(name + ", шучу!");
-	}
-	if (ostalos == "0"){
-		var tvoe = prompt("Молодец ты отгодал слово! Эмм напомни какое слово у тебя было?");
-		alert = (tvoe + ". О всегда любил это слово!");
 }
 
+function drawV (elem) {
+	let canv = $('#canv');
+	if (elem == 1) {
+		canv.drawRect({
+			fillStyle: 'black',
+			strokeStyle: 'black',
+			strokeWidth: 3,
+			width:150,
+			height: 10,
+			rounted:true,
+			x:50 , y:500,
+			fromCenter:false
+		})
+	}
+	if (elem == 2){
+		canv.drawLine({
+			strokeStyle: 'black',
+			strokeWidth: 10,
+			x1:100, y1:500,
+			x2:100, y2:100
+
+		})
+	}
+	if(elem == 3) {
+		canv.drawRect({
+			fillStyle: 'black',
+			strokeStyle: 'black',
+			strokeWidth: 3,
+			width:350,
+			height: 10,
+			rounted:true,
+			x:100 , y:100,
+			fromCenter:false
+		})
+	}
+	if (elem == 4){
+		canv.drawLine({
+			strokeStyle: 'black',
+			strokeWidth: 10,
+			x1:400, y1:100,
+			x2:400, y2:200
+
+		})
+	}
+	if (elem == 5) {
+		canv.drawArc({
+		strokeStyle:'black',
+		strokeWidth:5,
+		x:400, y:210,
+		radius: 30,
+		start: 0, end:360,
+		close:true
+	})
+	}
+	if (elem == 6){
+		canv.drawLine({
+			strokeStyle: 'black',
+			strokeWidth: 5,
+			x1:400, y1:240,
+			x2:400, y2:400
+
+		})
+	}
+	if (elem == 6){
+		canv.drawLine({
+			strokeStyle: 'black',
+			strokeWidth: 5,
+			x1:400, y1:280,
+			x2:400, y2:400
+		})
+	}
+	if (elem == 7){
+		canv.drawLine({
+			strokeStyle: 'black',
+			strokeWidth: 5,
+			x1:400, y1:300,
+			x2:450, y2:350
+
+		})
+	}
+	if (elem == 8){
+		canv.drawLine({
+			strokeStyle: 'black',
+			strokeWidth: 5,
+			x1:400, y1:300,
+			x2:350, y2:350
+
+		})
+	}
+	if (elem == 9){
+		canv.drawLine({
+			strokeStyle: 'black',
+			strokeWidth: 5,
+			x1:400, y1:400,
+			x2:350, y2:470
+
+		})
+	}
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
