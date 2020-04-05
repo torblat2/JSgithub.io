@@ -1,0 +1,15 @@
+#map{
+	height: 600px;
+}
+#popytka{
+	font-size: 25px;
+}
+#header{
+	font-family: 'Rubik Mono One', sans-serif;
+	display: flex;
+	justify-content: space-around;
+}
+.first {
+	width: 50%;
+	border:6px maroon solid ;
+}
