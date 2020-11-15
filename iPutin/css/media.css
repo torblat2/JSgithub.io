@@ -1,0 +1,122 @@
+@media all and (min-width: 1150px) {
+	#one:hover{
+         background-color: lightseagreen;
+         border-color: transparent;
+	}
+	#two:hover{
+		background-color: transparent;
+	    border: 3px white solid;
+	}
+	.nav-link:hover {
+	background-color: black;
+	color: white;
+}
+	.second-item:hover{
+		background-color: #00897b;
+		color: white;
+		border: white solid 2px;
+		transform: scale(1.05);
+		box-shadow: 0 0 40px 5px rgba(0,0,0,0.3)
+
+	}
+	.second-item:hover  .readmpre{
+		color: white;
+		border-color: white;
+
+	}
+	.second-item:hover{
+		fill: white;
+	}
+    .buttonnew:hover{
+    	transform:scale(1.5);
+    	transition:1.5s ease-out;
+    	filter:drop-shadow(16px 20px 30px black);
+    	
+    }
+    .photo:hover{
+    	filter: sepia(10%) drop-shadow(16px 20px 30px );
+    	transition: 0.4s;
+
+    }
+}
+
+
+@media all and (max-width: 768px) {
+	.nav-wrapper{
+		overflow: auto;
+		white-space: nowrap;
+	}
+	.header-btn{
+		width: auto;
+		height: 55px;
+
+
+	}
+	.logo, .search-wrapper, .topnav{
+		display: inline-block;
+	}
+	.h1{
+		font-size: 8vw;
+	}
+	.second-item, .first-item{
+		width: 90%;
+		margin:20px auto;
+		padding-left: 10%;
+		padding-right: 10%;
+	}
+	.first-box, .contact-box{
+		flex-wrap: wrap;
+		margin-top: 50px;
+	}
+	.section-subtitle{
+		width: 85%;
+
+	}
+	.tabs>label{
+		width: 100%;
+		height: 60px;
+		margin-top: 15px;
+		font-size: 3rem;		
+	}
+	.tabs>label[for="tab_2"]{
+		margin-left: 0;
+
+	}
+	.tabs>label[for="tab_3"]{
+		margin-left: 0;
+
+	}
+	.photo{
+		width: 100%;
+
+	}
+	.tabs{
+		width: 90%;
+
+	}
+	.battonnew{
+		width: 100%;
+	}
+	.form>input{
+		width: 90vw;
+		margin-top: 15px;
+	}
+}
+@media all and(max-width: 907px) and (min-width: 769){
+	.tabs>label[for="tab_3"]{
+		width: calc(50px + 20px);
+		margin-top: 15px;
+		margin-left: 0;
+
+	}
+    .photo{
+    	width: 45%;
+    }
+
+
+
+}
+
+
+
+
